@@ -46,14 +46,6 @@ public class ContentController {
     public String getListContent(Model model, HttpServletResponse response) throws IOException{
         List<ContentDto> list=iContentService.listContent();
         model.addAttribute("listCt",list);
-
-
-//        response.setContentType("application/octet-stream");
-//        String headerKey = "Content-Disposition";
-//        String headerValue = "attachment; filename=student"+ ".xlsx";
-//        response.setHeader(headerKey, headerValue);
-//        WriteFileExcel writeFileExcel=new WriteFileExcel(list);
-//        writeFileExcel.export(response);
         return "index";
     }
 

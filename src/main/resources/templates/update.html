@@ -1,0 +1,71 @@
+<!------ Include the above in your HEAD tag ---------->
+
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">-->
+    <title>Add News</title>
+</head>
+<body>
+
+<form class="form-horizontal " th:object="${content}" action="#"
+      th:action="@{/content/updatecontent/{id}(id=*{idContent})}" method="post" enctype="multipart/form-data">
+
+    <!-- Form Name -->
+    <legend>
+        <center>NEWS</center>
+    </legend>
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="product_id">TITLE</label>
+        <div class="col-md-4">
+            <input th:value="*{titleContent}" id="product_id" th:field="*{titleContent}" placeholder="title"
+                   class="form-control input-md" required="" type="text">
+
+        </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="product_name">MAIN CONTENT</label>
+        <div class="col-md-4">
+            <input id="product_name" th:field="*{mainContent}" th:value="*{mainContent}" placeholder="main of content"
+                   class="form-control input-md" required="" type="text">
+
+        </div>
+    </div>
+
+    <!-- File Button -->
+    <div class="form-group">
+        <center><img th:src="*{imageContent}" width="340px" height="200px"/></center>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="filebutton">IMAGE</label>
+        <div class="col-md-4">
+            <input id="filebutton" name="image" class="input-file" type="file" accept="image/png, image/jpeg">
+        </div>
+    </div>
+
+
+    <!-- Button -->
+    <div class="form-group">
+        <label class="col-md-4 control-label">ADD</label>
+        <div class="col-md-4">
+            <p><input class="btn btn-primary" type="submit" value="Submit"/>
+        </div>
+    </div>
+</form>
+<style>
+    body {
+
+        padding-top: 50px;
+    }
+</style>
+</body>
+</html>

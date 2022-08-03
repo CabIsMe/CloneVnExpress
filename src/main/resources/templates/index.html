@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>vnExpress</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<!--    <base href="/templates/**">-->
+<!--    <link href="style.css" rel="stylesheet" type="text/css" >-->
+<!--    <link th:href="@{/static/styles/style.css}" rel="stylesheet" type="text/css">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/0e7ed669fa.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="/content/">
+                  <i class="fa-solid fa-newspaper" style="color: #ff6219; font-size: 35px; margin: 0 10px;" ></i>
+                  <span class="h1 fw-bold mb-0">VN<i class="fa-brands fa-edge-legacy" style="color: #ff6219;"></i>XPRESS</span>
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">ĐỜI SỐNG</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">PHÁP LUẬT</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">SỨC KHỎE</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">DU LỊCH</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      GIẢI TRÍ
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li><a class="dropdown-item" href="#">GAME</a></li>
+                      <li><a class="dropdown-item" href="#">THỂ THAO</a></li>
+                      <li><a class="dropdown-item" href="#">MUSIC</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="navbar-service">
+                <span class="navbar-service_search">
+                    <form th:action="@{/content/getlistcontent/search}" >
+                        <div class="input-group rounded">
+                            <input th:value="${keyword}" name="keyword" type="text" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                            <span class="input-group-text border-0" id="search-addon">
+                                <button class="btn--Search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </span>
+                         </div>
+                    </form>
+                </span>
+                <span class="navbar-service-add">
+                    <button><a href="/content/addcontent"><i class="fa-solid fa-plus"></i>ADD NEW</a></button>
+                </span>
+            </div>
+          </nav>
+    </div>
+
+
+
+
+    <!-- CONTENT -->
+    <div class="content">
+        <div class="_container">
+            <div class="_wrapper">
+                <div th:each="info : ${listCt}"  class="row_col--center">
+                    <div class="image">
+                        <img th:src="${info.imageContent}" alt="" width="340px" height="200px"/>
+<!--        th:src="${info.imageContent}"                -->
+                    </div>
+                    <div class="title">
+                        <div class="time_title">
+                            <small th:text="${info.timeContent}"></small>
+                        </div>
+                        <div class="main_title">
+                            <span th:text="${info.titleContent}"></span>
+                        </div>
+                    </div>
+                    <div class="main_content">
+                        <span th:text="${info.mainContent}"></span>
+                    </div>
+                    <div class="card--tool">
+                        <a th:href="@{/content/updatecontent/{id}(id=${info.idContent})}" class="card--tool_fix text-primary"><i class="fa-solid fa-wrench"></i></a>
+                        <a th:href="@{/content/getlistcontent/{id}(id=${info.idContent})}" class="card--tool_delete .text-danger"><i class="fa-solid fa-trash"></i></a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--  FOOTER   -->
+    <!-- Footer -->
+    <footer style="border-top: 2px solid #ccc; margin-top: 40px;" class="page-footer font-small special-color-dark pt-4">
+
+        <!-- Footer Elements -->
+        <div class="container">
+
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <!-- Form -->
+                    <form class="form-inline">
+                        <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
+                               aria-label="Search">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </form>
+                    <!-- Form -->
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+
+                    <form class="input-group">
+                        <input type="text" class="form-control form-control-sm" placeholder="Your email"
+                               aria-label="Your email" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-sm btn-outline-white my-0" type="button">Sign up</button>
+                        </div>
+                    </form>
+
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+        </div>
+        <!-- Footer Elements -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2020 Copyright:
+            <a href="/"> vnExpress</a>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .header{
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+    .btn--Search{
+        background: transparent;
+        border: none;
+    }
+    .content{
+        width: 100%;
+        margin-top: 60px;
+    }
+    .row_col--center{
+        filter: brightness(95%);
+        text-align: center;
+        position: relative;
+        height: 365px;
+        overflow: hidden;
+    }
+
+    .row_col--center :hover{
+        /*opacity: 0.1;*/
+    }
+    ._container ._wrapper{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 40px;
+        padding: 0 20px;
+    }
+    ._container ._wrapper .time_title
+    {
+        font-size: 14px;
+        color: #ccc;
+    }
+    ._container ._wrapper .main_title{
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .navbar-service{
+        display: flex;
+        width: 550px;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 25px;
+    }
+    .navbar-service-add button{
+        border: none;
+        background: transparent;
+    }
+    .navbar-service-add button a{
+        text-decoration: none;
+        color: #333;
+    }
+    .navbar-service-add button i{
+        margin: 0 5px;
+    }
+    ._container ._wrapper .image{
+        position: relative;
+    }
+    .card--tool{
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        display: none;
+    }
+    .card--tool a{
+        text-decoration: none;
+        font-size: 20px;
+        margin: 8px 0;
+        cursor: pointer;
+    }
+    .card--tool .card--tool_fix{
+        color: #007BFF;
+    }
+    .card--tool .card--tool_delete{
+        color: #DC3545;
+    }
+    .row_col--center:hover .card--tool{
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+
+</body>
+</html>

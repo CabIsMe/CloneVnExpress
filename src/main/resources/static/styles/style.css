@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.header{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+.btn--Search{
+  background: transparent;
+    border: none;
+}
+.content{
+    width: 100%;
+    margin-top: 60px;
+}
+.row_col--center{
+    filter: brightness(95%);
+    text-align: center;
+    position: relative;
+    height: 365px;
+    overflow: hidden;
+}
+
+.row_col--center :hover{
+    /*opacity: 0.1;*/
+}
+._container ._wrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 40px;
+    padding: 0 20px;
+}
+._container ._wrapper .time_title
+{
+    font-size: 14px;
+    color: #ccc;
+}
+._container ._wrapper .main_title{
+    font-size: 16px;
+    font-weight: bold;
+}
+.navbar-service{
+    display: flex;
+    width: 550px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 25px;
+}
+.navbar-service-add button{
+    border: none;
+    background: transparent;
+}
+.navbar-service-add button a{
+    text-decoration: none;
+    color: #333;
+}
+.navbar-service-add button i{
+    margin: 0 5px;
+}
+._container ._wrapper .image{
+    position: relative;
+}
+.card--tool{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: none;
+}
+.card--tool a{
+    text-decoration: none;
+    font-size: 20px;
+    margin: 8px 0;
+    cursor: pointer;
+}
+.card--tool .card--tool_fix{
+    color: #007BFF;
+}
+.card--tool .card--tool_delete{
+    color: #DC3545;
+}
+.row_col--center:hover .card--tool{
+    display: flex;
+    flex-direction: column;
+}

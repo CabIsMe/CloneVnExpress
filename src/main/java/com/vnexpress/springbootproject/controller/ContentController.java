@@ -68,7 +68,7 @@ public class ContentController {
             long millis=System.currentTimeMillis();
             java.sql.Date date=new java.sql.Date(millis);
             contentDto.setTimeContent(date);
-//            System.out.println("\t here: "+contentDto.getImageContent()+contentDto.getTitleContent()+contentDto.getTimeContent().toString()+"\n");
+
 
             rabbitTemplate.convertAndSend(MessagingConfig.EXCHANGE, MessagingConfig.ROUTING_KEY, contentDto);
             logger.error(contentDto.getTitleContent());

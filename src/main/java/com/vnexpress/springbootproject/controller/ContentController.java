@@ -37,8 +37,6 @@ import java.util.List;
 public class ContentController {
     @Autowired
     private IContentService iContentService;
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
 
     private static final Logger logger = LoggerFactory.getLogger(ContentController.class);
 
@@ -55,7 +53,7 @@ public class ContentController {
         model.addAttribute("content", new ContentDto());
         return "add";
     }
-    Integer i=0;
+
     @PostMapping("/addcontent")
     public String creationSubmit(ContentDto contentDto, Model model, @RequestParam("image") MultipartFile image) throws IOException{
         Path path=Paths.get("src/main/resources/static/images/");
@@ -69,11 +67,6 @@ public class ContentController {
             java.sql.Date date=new java.sql.Date(millis);
             contentDto.setTimeContent(date);
 
-
-            rabbitTemplate.convertAndSend(MessagingConfig.EXCHANGE, MessagingConfig.ROUTING_KEY, contentDto);
-            logger.error(contentDto.getTitleContent());
-            i++;
-            logger.info("Message count: "+i.toString());
             iContentService.addContent(contentDto);
             model.addAttribute("message","Success!");
         }catch (Exception e){

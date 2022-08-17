@@ -10,6 +10,8 @@ import com.vnexpress.springbootproject.entity.content.Content;
 import com.vnexpress.springbootproject.entity.user.Role;
 import com.vnexpress.springbootproject.entity.user.User;
 
+import com.vnexpress.springbootproject.jaeger.JaegerService;
+import com.vnexpress.springbootproject.rabbitmq.MessagingConfig;
 import com.vnexpress.springbootproject.repository.content.ContentRepository;
 import com.vnexpress.springbootproject.repository.user.RoleRepository;
 import com.vnexpress.springbootproject.repository.user.UserRepository;
@@ -20,11 +22,15 @@ import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
+//import vn.com.fpt.foxpay.services.common.exception.BusinessException;
+
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +50,15 @@ public class testAPIController {
     RoleRepository roleRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    private JaegerService jaegerService;
+
+    public testAPIController(JaegerService jaegerService) {
+        this.jaegerService = jaegerService;
+    }
+
 
     private static final Logger logger = LoggerFactory.getLogger(testAPIController.class);
     @GetMapping("/getlisttest")
@@ -61,6 +76,19 @@ public class testAPIController {
     }
     @GetMapping("get1role")
     public RoleDto roleDto(@RequestParam("id") Long id){
+        Role role = roleRepository.findById(id).get();
+        Date date= new Date();
+
+        try{
+            logger.info("send...");
+            rabbitTemplate.convertAndSend(MessagingConfig.EXCHANGE, MessagingConfig.ROUTING_KEY, role);
+            jaegerService.get(id);
+//            logger.info("THE MESSAGE : {}",rabbitTemplate.getMessageConverter());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
         return modelMapper.map(roleRepository.getReferenceById(id),RoleDto.class);
     }
 

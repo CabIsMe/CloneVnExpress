@@ -1,11 +1,10 @@
 package com.vnexpress.springbootproject.rabbitmq;
 
 
+
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
@@ -14,10 +13,11 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 @Configuration
 //@EnableTransactionManagement
 public class MessagingConfig {
-    public static final String QUEUE="mail queue";
+    public static final String QUEUE="QUEUE3";
     public static final String EXCHANGE="message_exchange";
     public static final String ROUTING_KEY="message_routingKey";
 
@@ -51,7 +51,20 @@ public class MessagingConfig {
         final RabbitTemplate rabbitTemplate= new RabbitTemplate(connectionFactory());
         rabbitTemplate.setMessageConverter(converter());
         return rabbitTemplate;
-
     }
+//    @Bean
+//    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
+//                                             MessageListenerAdapter listenerAdapter) {
+//        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+//        container.setConnectionFactory(connectionFactory);
+//        container.setQueueNames(QUEUE);
+//        container.setMessageListener(listenerAdapter);
+//        return container;
+//    }
+//
+//    @Bean
+//    MessageListenerAdapter listenerAdapter(Receiver receiver) {
+//        return new MessageListenerAdapter(receiver, "receiveMessage");
+//    }
 
 }
